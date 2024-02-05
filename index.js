@@ -79,13 +79,28 @@ app.post('/create', (req, res) => {
     });
 });
 
-app.get('/getcategory',(req,res)=>{
-  Categorymodel.find({})
-    .then(users=>res.json(users))
-    .catch(err => {
-      console.error('Error creating user:', err);
-      res.status(500).json({ error: 'Error creating user' });
-    });
+app.get('/getcategory',async(req,res)=>{
+  try{
+    const data = await Categorymodel.find({})
+    if(!data){
+      return res.status(200).json({
+        status:'success',
+        data : null
+      })
+    }
+
+    return res.status(200).json({
+      status:'success',
+      data: JSON.stringify(data)
+    })
+
+  }catch(err){
+    return res.status(404).json({
+      status:'fail',
+      message: 'not found'
+    })
+  }
+
 })
 
 
