@@ -8,7 +8,7 @@
     ],
     "routes": [
         {
-            "src": "/savedata",
+            "src": "/welcome",
             "dest": "index.js"
         },
         {

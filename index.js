@@ -26,6 +26,20 @@ app.use((req,res,next)=>{
   console.log(err);
  })
 
+ app.get('/welcome',(req,res)=>{
+  try{
+    return res.status(200).json({
+      status:'success',
+      message:"welcome to employease"
+    })
+  }catch(err){
+    return res.status(404).json({
+      status:'fail',
+      message:"Not found"
+    })
+  }
+ })
+
 app.post('/register', (req, res) => {
   console.log('Received data:', req.body); // Logging req.body
   EmployeeModel.create(req.body)
