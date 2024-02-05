@@ -12,7 +12,7 @@
             "dest": "index.js"
         },
         {
-            "src": "/welcome",
+            "src": "/getcategory",
             "dest": "index.js"
         }
     ]
