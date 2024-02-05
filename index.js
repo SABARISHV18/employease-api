@@ -5,9 +5,10 @@ const EmployeeModel = require('./models/Login');
 const UserModel = require('./models/User');
 const AttendanceModel=require('./models/AttendanceModel')
 const AttendanceModell=require('./models/AttendanceModell')
+const dotenv = require('dotenv')
 
 const Categorymodel=require('./models/Categorymodel')
-
+dotenv.config({path:'.env'})
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -17,15 +18,13 @@ app.use((req,res,next)=>{
   next()
 })
 
-// {
-//   origin: ["https://deploy-mern-1whq.vercel.app"],
-//   methods: ["POST", "GET", "PUT"],
-//   credentials: true
-//  }
-
- mongoose.connect("mongodb+srv://sabarishv:Sabarii8@cluster0.ft5iy6n.mongodb.net/?retryWrites=true&w=majority");
-//  mongodb://127.0.0.1:27017/ems
-//mongodb+srv://sabarishv:Sabarii8@cluster0.ft5iy6n.mongodb.net/?retryWrites=true&w=majority
+ mongoose.connect(process.env.DB)
+ .then(()=>{
+  console.log("db connected");
+ })
+ .catch((err)=>{
+  console.log(err);
+ })
 
 app.post('/register', (req, res) => {
   console.log('Received data:', req.body); // Logging req.body
