@@ -26,7 +26,11 @@ app.use((req,res,next)=>{
   console.log(err);
  })
 
-app.post('/register', (req, res) => {
+
+
+
+
+app.post('/v1/register', (req, res) => {
   console.log('Received data:', req.body); // Logging req.body
   EmployeeModel.create(req.body)
     .then(newEmployee => {
@@ -40,7 +44,7 @@ app.post('/register', (req, res) => {
 });
 
 
-app.post('/create', (req, res) => {
+app.post('/v1/create', (req, res) => {
   console.log('Received data:', req.body); // Logging req.body
   UserModel.create(req.body)
     .then(user => {
@@ -53,7 +57,7 @@ app.post('/create', (req, res) => {
     });
 });
 
- app.post('/add', (req, res) => {
+ app.post('/v1/add', (req, res) => {
   Categorymodel.create(req.body)
     .then(data => {
       console.log('New category created:', data);
@@ -65,7 +69,8 @@ app.post('/create', (req, res) => {
     });
 });
 
-app.get('/getcategory',(req,res)=>{
+
+app.get('/v1/getcategory',(req,res)=>{
   Categorymodel.find({})
     .then(users=>res.json(users))
     .catch(err => {
@@ -79,7 +84,7 @@ app.get('/getcategory',(req,res)=>{
 
 
 
-// app.post('/attendance', (req, res) => {
+// app.post('/v1/attendance', (req, res) => {
 //   const { employeeId, status } = req.body;
 
 //   AttendanceModel.create({ employeeId, status })
@@ -94,7 +99,7 @@ app.get('/getcategory',(req,res)=>{
 // });
 
 
-app.post('/attendancee', (req, res) => {
+app.post('/v1/attendancee', (req, res) => {
   const { employeeId, status } = req.body;
 
   AttendanceModell.create({ employeeId, status })
@@ -110,7 +115,7 @@ app.post('/attendancee', (req, res) => {
 
 
 
-app.get('/employee',(req,res)=>{
+app.get('/v1/employee',(req,res)=>{
   UserModel.find({})
     .then(users=>res.json(users))
     .catch(err => {
@@ -118,7 +123,7 @@ app.get('/employee',(req,res)=>{
       res.status(500).json({ error: 'Error creating user' });
     });
 })
-app.get('/getuser/:id', (req, res) => {
+app.get('/v1/getuser/:id', (req, res) => {
   const id = req.params.id;
   UserModel.findById(id) // Use just the id directly without { _id: id }
     .then(user => res.json(user))
@@ -127,7 +132,7 @@ app.get('/getuser/:id', (req, res) => {
       res.status(500).json({ error: 'Error fetching user' });
     });
 });
-// app.get('/history/:id',(req, res) => {
+// app.get('/v1/history/:id',(req, res) => {
 //   const id = req.params.id;
 //   console.log('hii'); 
 // AttendanceModell.findById(id) // Use just the id directly without { _id: id }
@@ -137,7 +142,7 @@ app.get('/getuser/:id', (req, res) => {
 //       res.status(500).json({ error: 'Error fetching user' });
 //     });
 // });
-app.get('/history/:employeeId', (req, res) => {
+app.get('/v1/history/:employeeId', (req, res) => {
   const employeeId = req.params.employeeId;
 
   AttendanceModell.find({ employeeId })
@@ -156,7 +161,7 @@ app.get('/history/:employeeId', (req, res) => {
 
 
 
-// app.get('/history/:id', async (req, res) => {
+// app.get('/v1/history/:id', async (req, res) => {
 //   try {
 //     const name = req.params.id;
 //     console.log('hii');
@@ -177,7 +182,7 @@ app.get('/history/:employeeId', (req, res) => {
 
 
 
-app.get('/categoryCount', (req, res) => {
+app.get('/v1/categoryCount', (req, res) => {
   Categorymodel.countDocuments()
     .then(employeeCount => {
       res.json({ count: employeeCount });
@@ -189,7 +194,7 @@ app.get('/categoryCount', (req, res) => {
 });
 
 
-app.get('/employeeCount', (req, res) => {
+app.get('/v1/employeeCount', (req, res) => {
   UserModel.countDocuments()
     .then(employeeCount => {
       res.json({ count: employeeCount });
@@ -200,7 +205,7 @@ app.get('/employeeCount', (req, res) => {
     });
 });
 
-app.get('/adminCount', (req, res) => {
+app.get('/v1/adminCount', (req, res) => {
   EmployeeModel.countDocuments()
     .then(employeeCount => {
       res.json({ count: employeeCount });
@@ -214,7 +219,7 @@ app.get('/adminCount', (req, res) => {
 
 
 
-app.put('/update/:id', (req, res) => {
+app.put('/v1/update/:id', (req, res) => {
   const id = req.params.id;
   UserModel.findByIdAndUpdate({ _id: id }, {
     name: req.body.name,
@@ -229,7 +234,7 @@ app.put('/update/:id', (req, res) => {
 });
 
 
-app.post('/login',(req,res)=>{
+app.post('/v1/loginForm',(req,res)=>{
     const {email,password}=req.body;
     EmployeeModel.findOne({email:email})
     .then(user=>{
@@ -249,7 +254,7 @@ app.post('/login',(req,res)=>{
     }
     })
 })
-app.delete('/deleteUser/:id', (req, res) => {
+app.delete('/v1/deleteUser/:id', (req, res) => {
   const id = req.params.id;
   UserModel.findByIdAndDelete({ _id: id })
     .then(deletedUser => {
@@ -263,7 +268,7 @@ app.delete('/deleteUser/:id', (req, res) => {
       res.status(500).json({ error: 'Error deleting user' });
     });
 });
-app.delete('/deletecategory/:id', (req, res) => {
+app.delete('/v1/deletecategory/:id', (req, res) => {
   const id = req.params.id;
   Categorymodel.findByIdAndDelete({ _id: id })
     .then(deletedUser => {
