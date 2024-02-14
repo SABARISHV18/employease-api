@@ -10,8 +10,14 @@ const dotenv = require('dotenv')
 const Categorymodel=require('./models/Categorymodel')
 dotenv.config({path:'.env'})
 const app = express();
+const corsConfig = {
+  origin:"*",
+  credential:true,
+  methods:["GET","POST","PUT","PATCH","DELETE","OPTIONS"]
+}
+app.options("",cors(corsConfig));
+app.use(cors(corsConfig));
 app.use(express.json());
-app.use(cors());
 
 app.use((req,res,next)=>{
   res.header("Access-Control-Allow-Origin","*")
