@@ -190,6 +190,7 @@ app.get('/v1/history/:employeeId', (req, res) => {
 
 
 app.get('/v1/categoryCount', (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
   Categorymodel.countDocuments()
     .then(employeeCount => {
       res.json({ count: employeeCount });
